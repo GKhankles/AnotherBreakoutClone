@@ -22,5 +22,11 @@ public class Entity_Menu extends Entity_GameObject {
 			g.drawRect(x, y, 100, 50);
 			g.drawString("Play Game", x + 20, y + 30);
 		}
+		
+		if (Main_Game.gameState == 2) {
+			g.setColor(Color.WHITE);
+			g.drawRect(x, y + 100, 100, 50);
+			g.drawString("Restart", x + 20, y + 130);
+		}
 	}
 }

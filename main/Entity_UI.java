@@ -78,9 +78,10 @@ public class Entity_UI extends Entity_GameObject {
 			if (winGame) {
 				g.setFont(new Font("TimesRoman", Font.PLAIN, 24));
 				g.drawString("You Win!", 640, 360);
-				
-				if(timeToReplay / 60 >= 5) {
-					g.drawString("Play Again?", 640, 400);
+
+				if (timeToReplay / 60 >= 5) {
+					//g.drawString("Play Again?", 640, 400);
+					Main_Game.gameState = 2;
 				}
 			}
 		}

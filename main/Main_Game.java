@@ -19,7 +19,8 @@ public class Main_Game extends Canvas implements Runnable {
 	public static int ballSpawner = 10;
 	public boolean newBall;
 
-	protected static int gameState; // 0 = start menu, 1 = game
+	protected static int gameState; // 0 = start menu, 1 = game, 2 = restart screen
+	public static boolean buildGame;
 
 	public Main_Game() {
 		handler = new Handler_Handler();
@@ -27,8 +28,28 @@ public class Main_Game extends Canvas implements Runnable {
 		this.addMouseListener(new Input_MouseInput(handler));
 
 		new Main_Window(WIDTH, HEIGHT, "Sample Game", this);
+		
+		buildGame = false;
 
 		gameState = 0;
+
+		handler.addObject(new Entity_Menu(590, 360, Handler_ID.Menu, handler));
+
+		handler.addObject(new Entity_Player(640, 600, Handler_ID.Player));
+		handler.addObject(new Entity_UI(50, 10, Handler_ID.UI, handler));
+
+		// block builder
+		for (int i = 0; i < 13; i++) {
+			for (int j = 0; j < 5; j++) {
+				handler.addObject(new Entity_Block(50 + 90 * i, 40 + 25 * j, Handler_ID.Block));
+			}
+		}
+
+		newBall = true;
+	}
+
+	public void newGame() {
+		handler.object.clear();
 
 		handler.addObject(new Entity_Menu(590, 360, Handler_ID.Menu, handler));
 
@@ -97,7 +118,10 @@ public class Main_Game extends Canvas implements Runnable {
 	}
 
 	private void tick() {
-		if (gameState == 1) {
+		if (gameState == 0 && buildGame) {
+			newGame();
+			buildGame = false;
+		} else if (gameState == 1) {
 			if (Main_Game.points % Main_Game.ballSpawner == 0 && newBall == true) {
 				handler.addObject(new Entity_Ball(640, 200, Handler_ID.Ball, handler));
 				newBall = false;
