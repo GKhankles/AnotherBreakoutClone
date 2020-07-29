@@ -27,7 +27,6 @@ public class Entity_Menu extends Entity_GameObject {
 			g.setColor(Color.WHITE);
 			g.drawRect(x, y + 100, 100, 50);
 			g.drawString("Restart", x + 20, y + 130);
-			//
 		}
 	}
 }
